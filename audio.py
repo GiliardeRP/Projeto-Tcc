@@ -13,7 +13,7 @@ class Audio:
         while True:
             with voz.Microphone() as source:
                 mic.adjust_for_ambient_noise(source)
-                audio = mic.listen(source, timeout=5, phrase_time_limit=5)
+                audio = mic.listen(source, timeout=5, phrase_time_limit=15)
             try:
                 frase = mic.recognize_google(audio, language='pt-BR')
                 if frase:

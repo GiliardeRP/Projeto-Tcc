@@ -1,10 +1,13 @@
 import os
+from model import *
  
 class Programas:
     
        def listarProgramas():
-    
-        pasta = r"C:\Users\gilia\OneDrive\Área de Trabalho\teste"
+        
+        banco = Model.selectDb()
+        
+        pasta = r''+banco[0][1]
 
         arquivos = os.listdir(pasta)
         

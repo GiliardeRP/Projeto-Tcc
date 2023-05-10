@@ -5,13 +5,13 @@ from audio import Audio as audio
 from programas import Programas as pg
 import win32com.client
 import re
-
-
+import pythoncom
 
 class Services:
     
-   
     def abrirProgramas(frase):
+        pythoncom.CoInitialize()
+
         shell = win32com.client.Dispatch("Shell.Application")
         menu_iniciar = shell.NameSpace(0x0)
 
@@ -25,10 +25,7 @@ class Services:
         else:
             print("checando pasta.")
     
-
             programasBase = pg.listarProgramas()
-            
-            print(programasBase)
             
             if programasBase[frase]: 
                 os.startfile(programasBase[frase])
@@ -44,14 +41,15 @@ class Services:
         tela.sleep(5)
 
         tela.typewrite(frase)
+        audio.falar('Sua frase foi digitalizada')
         
-    def rastrearPasta(nome):
+    def rastrearPasta():
         
         caminhos = [
-            os.path.join(os.path.expanduser("~"), "OneDrive", "Área de Trabalho", nome),
-            os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", nome),
-            os.path.join(os.path.expanduser("~"), "Área de Trabalho", nome),
-            os.path.join(os.path.expanduser("~"), "Desktop", nome),
+            os.path.join(os.path.expanduser("~"), "Desktop", "zare"),
+            os.path.join(os.path.expanduser("~"), "Área de Trabalho", "zare"),
+            os.path.join(os.path.expanduser("~"), "OneDrive", "Área de Trabalho", "zare"),
+            os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "zare"),
         ]
 
         for caminho in caminhos:
@@ -61,6 +59,8 @@ class Services:
         return False
     
     def listarProgramas():
+        pythoncom.CoInitialize()
+
         shell = win32com.client.Dispatch("Shell.Application")
         menu_iniciar = shell.NameSpace(0x0)
 

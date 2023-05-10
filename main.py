@@ -1,11 +1,11 @@
 #import threading
-from services import Services as server
-from audio import Audio as audio
+from Services.services import Services as server
+from Audio.audio import Audio as audio
 from tkinter import *
 #import time
 import keyboard
 import datetime
-from model import *
+from Banco.model import *
 
 
 class Main:
@@ -51,7 +51,6 @@ class Main:
                 start = 0
             else:
                 audio.falar('Nao entendi')
-
 
 
 check = server.rastrearPasta()

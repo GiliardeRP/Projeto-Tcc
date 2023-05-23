@@ -1,7 +1,7 @@
 #import threading
 from Services.services import Services as server
 from Audio.audio import Audio as audio
-from tkinter import *
+import tkinter as tk
 #import time
 import keyboard
 import datetime
@@ -10,7 +10,6 @@ from Banco.model import *
 
 class Main:
 
-        
     def start():
             
         start = 1
@@ -62,9 +61,6 @@ if check != False:
     keyboard.wait()
 
 audio.falar('Tem algo de errado com o diretório da pasta de programas')
-
-
-
 
 
 

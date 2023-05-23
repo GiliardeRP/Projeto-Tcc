@@ -31,8 +31,8 @@ class Audio:
         
     def falar(frase):
 
-        objFrase =gtts.gTTS(frase, lang='pt-br')
-        objFrase.save( 'audio.mp3')
+        objFrase = gtts.gTTS(frase, lang='pt-br')
+        objFrase.save('audio.mp3')
         
         pygame.mixer.init()
 

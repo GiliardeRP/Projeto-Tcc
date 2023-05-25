@@ -2,22 +2,37 @@ import PySimpleGUI as sg
 from Services.services import Services as server
 from Audio.audio import Audio as audio
 import threading
-
-import tkinter as tk
-#import time
-import keyboard
 import datetime
 from Banco.model import *
-
-
+import keyboard
+import sys
 
 def exibir_informacoes(informacoes):
     window['-TEXTO-'].update(informacoes)
 
+def create_window():
+    layout = [
+        [sg.Text('Informações:', key='-ROTULO-')],
+        [sg.Text('', key='-TEXTO-')],
+    ]
+    global window
+    window = sg.Window('Janela de Informações', layout, finalize=True)
+    
+    window.finalize()  # Finaliza a criação da janela antes de configurar a posição
+    window.TKroot.geometry(f"+{100}+{100}")
+
+    while True:
+        event, values = window.read(timeout=100)  # Defina um tempo de espera para atualizar a janela
+        if event == sg.WINDOW_CLOSED:
+            break
+
+        # Atualize o elemento de texto com as informações relevantes
+        # Aqui você pode utilizar variáveis ou funções para obter as informações que deseja exibir
+
+    window.close()
 
 def main_loop():
-    a = 0
-    while a == 0:
+    while True:
         exibir_informacoes('Ouvindo')  # Exibir "Ouvindo" na tela
 
         audio.falar('Diga o comando')
@@ -30,7 +45,7 @@ def main_loop():
             frase = frase.replace('abrir ', '')
             print(frase)
             server.abrirProgramas(frase)
-            a = 1
+            break
         elif 'digite' in frase:
             frase = frase.replace('digite ', '')
             print('DIGITATROM: ', frase)
@@ -52,42 +67,22 @@ def main_loop():
         else:
             audio.falar('Não entendi')
 
-
-
 def main():
-    layout = [
-        [sg.Text('Informações:', key='-ROTULO-')],
-        [sg.Text('', key='-TEXTO-')],
-    ]
+    check = server.rastrearPasta()
 
-    global window  # torna a variável window global
-    global thread_loop
+    if check != False:
+        Model.insertDb(check)
 
-    window = sg.Window('Janela de Informações', layout, finalize=True)
+        thread_window = threading.Thread(target=create_window)
+        thread_window.start()
 
-    thread_loop = threading.Thread(target=main_loop)
-    thread_loop.start()
-
-    while True:
-        event, values = window.read(timeout=100)  # Defina um tempo de espera para atualizar a janela
-        if event == sg.WINDOW_CLOSED:
-            break
-
-        # Atualize o elemento de texto com as informações relevantes
-        # Aqui você pode utilizar variáveis ou funções para obter as informações que deseja exibir
+        keyboard.add_hotkey('ctrl+alt+p', lambda: main_loop())
+        keyboard.wait()
         
 
-    # Aguarde o término do loop principal antes de fechar a janela
-    thread_loop.join()
-    window.close()
+        thread_window.join()
 
+    audio.falar('Houve algum problema com o diretório da pasta de programas')
 
-check = server.rastrearPasta()
-
-if check != False:
-    Model.insertDb(check)
-
-    keyboard.add_hotkey('ctrl+alt+p', lambda: main())
-    keyboard.wait()
-
-audio.falar('Houve algum problema com o diretório da pasta de programas')
+if __name__ == '__main__':
+    main()

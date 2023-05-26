@@ -16,7 +16,7 @@ def create_window():
         [sg.Text('', key='-TEXTO-')],
     ]
     global window
-    window = sg.Window('Janela de Informações', layout, finalize=True)
+    window = sg.Window('Janela de Informações', layout,size=(350, 150), finalize=True)
     
     window.finalize()  # Finaliza a criação da janela antes de configurar a posição
     window.TKroot.geometry(f"+{100}+{100}")

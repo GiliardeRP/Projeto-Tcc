@@ -5,6 +5,7 @@ from Programas.programas import Programas as pg
 import win32com.client
 import re
 import pythoncom
+import keyboard
 
 class Services:
     
@@ -40,8 +41,9 @@ class Services:
     def digitador(frase):
 
         tela.sleep(5)
+    
+        keyboard.write(frase)
 
-        tela.typewrite(frase)
         Audio.falar('Sua frase foi digitalizada')
         
     def rastrearPasta():

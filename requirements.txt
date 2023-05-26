@@ -8,3 +8,4 @@ pyaudio
 keyboard
 pywin32
 PySimpleGUI
+unidecode

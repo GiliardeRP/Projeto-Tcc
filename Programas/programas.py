@@ -3,7 +3,7 @@ from Banco.model import *
  
 class Programas:
     
-       def listarProgramas():
+       def programaPasta():
         
         banco = Model.selectDb()
         

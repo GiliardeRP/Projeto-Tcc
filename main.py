@@ -50,17 +50,21 @@ def main_loop():
             trava = 0
         elif "pesquise" or "pesquisa"   in frase:
             frase = frase.replace('pesquise ', '')
+            frase = frase.replace('pesquisa ', '')
             print(frase)
             if "site" in frase: 
                 Audio.falar('Diga somente a url de busca')
                 frase = Audio.ouvir()
                 Services.pesquisaWeb(frase, 'url')
+                Audio.falar('O site: ' + frase + ' foi aberto')
                 trava = 0 
                 return
             Audio.falar('O que você quer pesquisar?')
             frase = Audio.ouvir()
             Services.pesquisaWeb(frase,'')
+            Audio.falar('Sua pesquisa sobre: ' + frase + ' foi realizada')
             trava = 0
+            return
         else:
             Audio.falar('Não entendi')
             

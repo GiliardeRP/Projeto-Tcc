@@ -60,7 +60,7 @@ class Services:
                 
                 return True
             else:
-                Audio.falar('Programa não encontrado')
+                Audio.falar('Programa não encontrado, aquardando o próximo comando')
                 Tela.exibirInformacoes('Programa não encontrado')
                 return False
     
@@ -70,7 +70,7 @@ class Services:
     
         keyboard.write(frase)
 
-        Audio.falar('Sua frase foi digitalizada')
+        Audio.falar('A seguinte frase:   ' + frase + 'foi digitalizada' )
         
     def rastrearPasta():
         

@@ -22,8 +22,8 @@ def main_loop():
             Services.abrirProgramas(frase)
             trava = 0
         elif 'escreva' in frase:
-            frase = frase.replace('escreva ', '')
-            print('DIGITATROM: ', frase)
+            Audio.falar('Diga sua frase')
+            frase = Audio.ouvir()
             Services.digitador(frase)
             Tela.exibirInformacoes('Frase foi digitalizada, aguardando o próximo comando.')
             trava = 0
@@ -47,6 +47,19 @@ def main_loop():
             dateStr = now.strftime("%d/%m/%Y")
             Audio.falar('Hoje é: ' + dateStr)
             Tela.exibirInformacoes(f'Data: {dateStr}')
+            trava = 0
+        elif "pesquise" or "pesquisa"   in frase:
+            frase = frase.replace('pesquise ', '')
+            print(frase)
+            if "site" in frase: 
+                Audio.falar('Diga somente a url de busca')
+                frase = Audio.ouvir()
+                Services.pesquisaWeb(frase, 'url')
+                trava = 0 
+                return
+            Audio.falar('O que você quer pesquisar?')
+            frase = Audio.ouvir()
+            Services.pesquisaWeb(frase,'')
             trava = 0
         else:
             Audio.falar('Não entendi')

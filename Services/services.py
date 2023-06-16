@@ -6,6 +6,8 @@ import win32com.client
 import re
 import pythoncom
 import keyboard
+import webbrowser
+
 from Tela.tela import Tela
 
 class Services:
@@ -41,6 +43,7 @@ class Services:
                 nome_item = item.Name
                 if re.search(frase, nome_item, re.IGNORECASE):
                     item.InvokeVerb("open")
+                    Audio.falar('o programa ' + frase +' foi aberto')
                     Tela.exibirInformacoes(f'Abrindo: {frase}.' )
                     break
         else:
@@ -63,7 +66,7 @@ class Services:
     
     def digitador(frase):
 
-        tela.sleep(5)
+        tela.sleep(4)
     
         keyboard.write(frase)
 
@@ -126,5 +129,11 @@ class Services:
             
             Audio.falar(frase_completa)
         
+    def pesquisaWeb(frase, type):
 
-
+        if type == "url":
+            webbrowser.open(frase)
+            return
+            
+        url = f'https://www.google.com/search?q={frase}'
+        webbrowser.open(url)

@@ -41,16 +41,16 @@ def main_loop():
             dateStr = now.strftime("%H:%M")
             Audio.falar('Agora são: ' + dateStr)
             Tela.exibirInformacoes(f'Horas: {dateStr}')
-            trava = 0
+            trava = 0 
         elif "data" in frase:
             now = datetime.datetime.now()
             dateStr = now.strftime("%d/%m/%Y")
             Audio.falar('Hoje é: ' + dateStr)
             Tela.exibirInformacoes(f'Data: {dateStr}')
             trava = 0
-        elif "pesquise" or "pesquisa"   in frase:
+        elif "pesquise" in frase:
+            print(frase)
             frase = frase.replace('pesquise ', '')
-            frase = frase.replace('pesquisa ', '')
             print(frase)
             if "site" in frase: 
                 Audio.falar('Diga somente a url de busca')
@@ -65,6 +65,16 @@ def main_loop():
             Audio.falar('Sua pesquisa sobre: ' + frase + ' foi realizada')
             trava = 0
             return
+        elif "comandos" in frase:
+            print(frase)
+            Services.comandos()
+            trava = 0
+            return
+        elif "instruções" in frase:
+            print(frase)
+            Services.instrucoes()
+            trava = 0 
+            return
         else:
             Audio.falar('Não entendi')
             
@@ -74,15 +84,24 @@ def main():
     Audio.falar('O Zare está iniciando, por favor aguarde')
     check = Services.rastrearPasta()
 
-    if check != False:
-        
-        Services.start()
-        Model.insertDb(check)
+    if check == False:
+        Audio.falar('A pasta zare não foi encontrada, o programa será iniciado com limitações no comando "abrir". Por favor aguarde')
+    
+    Services.start()
+    Model.insertDb(check)
 
-        thread_window = threading.Thread(target=Tela.createWindow)
-        thread_window.start()
+    thread_window = threading.Thread(target=Tela.createWindow)
+    thread_window.start()
+    
+    Audio.falar("O Zare já está disponível para uso. Para ativar o comando de voz basta pressionar o atalho control+alt+P, Para ouvir os comandos do sistema, basta dizer 'comandos'. E para obter as instruções de uso, basta dizer 'instruções'.")
+    
+    while True:
         
-        Audio.falar('O Zare já está disponível para uso')
+        if Tela.isWindowOpen():
+            if keyboard.is_pressed('ctrl+alt+p'):
+                main_loop()
+        else: 
+            sys.exit(0)    
         
         while True:
             

@@ -137,3 +137,11 @@ class Services:
             
         url = f'https://www.google.com/search?q={frase}'
         webbrowser.open(url)
+        
+    def instrucoes():
+        instrucao = "Para utilizar o Zare com eficácia, é recomendável seguir alguns procedimentos. Antes de dar o comando de voz, é aconselhável aguardar de 1 a 2 segundos para que o computador ligue o microfone. O tempo necessário pode variar de máquina para máquina. Caso não respeite esse intervalo, o comando ou frase dita pode não ser capturado completamente, resultando em um erro no programa. Outro procedimento é criar uma pasta chamada 'zare' (z, a, r, e) com as letras em minúsculas no diretório da área de trabalho. Essa pasta é essencial para garantir que o comando 'abrir' funcione com maior eficiência. Se a pasta não for criada, o comando pode funcionar de forma limitada e não localizar todos os arquivos do sistema. Após criar a pasta, basta mover o arquivo desejado para seu interior. Certifique-se de que o nome do arquivo movido esteja em minúsculas e sem caracteres especiais. " 
+        Audio.falar(instrucao)
+        
+    def comandos():
+        comandos = "Os comandos para a utilização do programa são: abrir e o nome do arquivo desejado, escreva, lista, cancelar, horas, data, pesquisa, pesquisa por site, comandos, e instruções. Vale ressaltar que os comandos devem ser pronunciados exatamente como foram ditos anteriormente. "
+        Audio.falar(comandos)

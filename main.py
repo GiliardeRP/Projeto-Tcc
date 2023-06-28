@@ -90,7 +90,9 @@ def main():
                 if keyboard.is_pressed('ctrl+alt+p'):
                     main_loop()
             else: 
-                sys.exit(0)    
+                Model.deleteDataDb()
+                sys.exit(0)
+                
         
     Audio.falar('Houve algum problema com o diretório da pasta de programas')
 
